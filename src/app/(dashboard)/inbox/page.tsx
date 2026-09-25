@@ -62,13 +62,13 @@ function InboxPageInner() {
 
   /**
    * Whether the desktop contact sidebar (tags / deals / notes) is shown.
-   * Defaults to `true` (the historical behaviour) and is restored from
+   * Defaults to `false` (WhatsApp-like behavior) and is restored from
    * localStorage after mount. We deliberately do NOT read localStorage in
-   * the initializer: the server renders with `true`, so reading a stored
-   * `false` synchronously would produce a hydration mismatch. The effect
+   * the initializer: the server renders with `false`, so reading a stored
+   * `true` synchronously would produce a hydration mismatch. The effect
    * below reconciles to the stored value right after mount instead.
    */
-  const [contactPanelOpen, setContactPanelOpen] = useState(true);
+  const [contactPanelOpen, setContactPanelOpen] = useState(false);
   useEffect(() => {
     try {
       const stored = localStorage.getItem(CONTACT_PANEL_STORAGE_KEY);

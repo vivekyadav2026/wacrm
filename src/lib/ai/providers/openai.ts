@@ -29,7 +29,7 @@ export async function generateOpenAi(args: ProviderArgs): Promise<ProviderResult
 
   let res: Response
   try {
-    let finalMessages = mergeConsecutive(messages);
+    const finalMessages = mergeConsecutive(messages);
     if (finalMessages.length > 0 && finalMessages[finalMessages.length - 1].role === 'assistant') {
       finalMessages.push({ role: 'user', content: 'Draft the next follow-up message from the business.' });
     }

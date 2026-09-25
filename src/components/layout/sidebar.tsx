@@ -106,14 +106,17 @@ const bottomNavItems = [
 ];
 
 interface SidebarProps {
-  /** Controlled on mobile by the Header's hamburger button. Ignored on lg+. */
+  /** Controlled on mobile by the Header's hamburger button. */
   open?: boolean;
   onClose?: () => void;
+  /** Desktop sidebar collapse state */
+  desktopOpen?: boolean;
+  onToggleDesktop?: () => void;
 }
 
 import { useTranslations } from "next-intl";
 
-export function Sidebar({ open = false, onClose }: SidebarProps) {
+export function Sidebar({ open = false, onClose, desktopOpen = true }: SidebarProps) {
   const t = useTranslations("Sidebar");
   const pathname = usePathname();
   const { profile, profileLoading, account, accountRole, signOut } = useAuth();
@@ -176,11 +179,12 @@ export function Sidebar({ open = false, onClose }: SidebarProps) {
       <aside
         className={cn(
           // Mobile: fixed drawer that slides in from the left.
-          "fixed inset-y-0 left-0 z-40 flex h-full w-64 flex-col border-r border-border bg-card",
-          "transition-transform duration-200 ease-out will-change-transform",
+          "fixed inset-y-0 left-0 z-40 flex h-full flex-col border-r border-border bg-card w-64",
+          "transition-all duration-200 ease-out will-change-transform",
           open ? "translate-x-0" : "-translate-x-full",
-          // Desktop: static, always visible — reset all the mobile framing.
-          "lg:static lg:z-0 lg:w-60 lg:translate-x-0 lg:transition-none",
+          // Desktop: static, but respects desktopOpen state
+          "lg:static lg:z-0 lg:transition-all lg:duration-200 lg:overflow-hidden",
+          desktopOpen ? "lg:w-60 lg:translate-x-0" : "lg:w-0 lg:-translate-x-full lg:border-r-0 lg:opacity-0",
         )}
         aria-label={t("primaryNav")}
       >

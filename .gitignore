@@ -16,6 +16,7 @@
 # next.js
 /.next/
 /out/
+build/
 
 # production
 /build
@@ -32,9 +33,8 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
-# keep example files so forkers have a template to copy
-!.env.local.example
 !.env.example
+!.env.local.example
 
 # vercel
 .vercel
@@ -42,3 +42,26 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDEs and Editors
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Scratch / test files
+scratch_*.js
+test_*.js

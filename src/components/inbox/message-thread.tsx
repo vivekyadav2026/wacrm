@@ -918,15 +918,23 @@ export function MessageThread({
               <ArrowLeft className="h-5 w-5" />
             </button>
           )}
-          <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-muted text-sm font-medium text-foreground">
-            {displayName.charAt(0).toUpperCase()}
-          </div>
-          <div className="min-w-0">
-            <h2 className="truncate text-sm font-semibold text-foreground">{displayName}</h2>
-            <p className="truncate text-xs text-muted-foreground">
-              {contactHandle(contact)}
-            </p>
-          </div>
+          
+          <button
+            type="button"
+            onClick={onToggleContactPanel}
+            className="flex min-w-0 items-center gap-2 sm:gap-3 text-left transition-opacity hover:opacity-80"
+          >
+            <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-muted text-sm font-medium text-foreground">
+              {displayName.charAt(0).toUpperCase()}
+            </div>
+            <div className="min-w-0">
+              <h2 className="truncate text-sm font-semibold text-foreground">{displayName}</h2>
+              <p className="truncate text-xs text-muted-foreground">
+                {contactHandle(contact)}
+              </p>
+            </div>
+          </button>
+          
           {/* Session timer badge — hidden on the narrowest phones so
               the name + back arrow keep their room. */}
           <Badge

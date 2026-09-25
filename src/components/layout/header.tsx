@@ -38,14 +38,16 @@ function getPageTitleKey(pathname: string): string {
 }
 
 interface HeaderProps {
-  /** Wired to the shell's drawer state. Used only on mobile — the
-   *  hamburger button is hidden on lg+. */
+  /** Mobile drawer toggle */
   onOpenSidebar?: () => void;
+  /** Desktop sidebar toggle */
+  desktopSidebarOpen?: boolean;
+  onToggleDesktopSidebar?: () => void;
 }
 
 import { useTranslations } from "next-intl";
 
-export function Header({ onOpenSidebar }: HeaderProps) {
+export function Header({ onOpenSidebar, onToggleDesktopSidebar }: HeaderProps) {
   const t = useTranslations("Header");
   const pathname = usePathname();
   const { profile, signOut } = useAuth();
@@ -59,12 +61,19 @@ export function Header({ onOpenSidebar }: HeaderProps) {
   return (
     <header className="flex h-14 shrink-0 items-center justify-between gap-3 border-b border-border bg-background px-4 lg:px-6">
       <div className="flex min-w-0 items-center gap-2">
-        {/* Hamburger — mobile only. 44×44 hit target per Apple HIG. */}
+        {/* Hamburger — toggles drawer on mobile, collapse on desktop. */}
         <button
           type="button"
-          onClick={onOpenSidebar}
+          onClick={() => {
+            // on mobile, it opens the drawer. on desktop, it toggles collapse.
+            if (window.innerWidth < 1024) {
+              onOpenSidebar?.();
+            } else {
+              onToggleDesktopSidebar?.();
+            }
+          }}
           aria-label={t("openMenu")}
-          className="flex h-10 w-10 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground lg:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
         >
           <Menu className="h-5 w-5" />
         </button>
