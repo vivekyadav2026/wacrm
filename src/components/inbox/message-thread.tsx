@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { usePresence } from "@/hooks/use-presence";
+import { useRouter } from "next/navigation";
 import { PresenceDot } from "@/components/presence/presence-dot";
 import { presenceLabel } from "@/lib/presence";
 import { cn } from "@/lib/utils";
@@ -170,6 +171,7 @@ export function MessageThread({
   const tQuote = useTranslations("Inbox.replyQuote");
 
   const { user } = useAuth();
+  const router = useRouter();
   const { getPresence, getRow, now } = usePresence();
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -640,6 +642,22 @@ export function MessageThread({
     [conversation, onNewMessage, onUpdateMessage, t],
   );
 
+  const handleDeleteChat = useCallback(async () => {
+    if (!conversation) return;
+    if (!confirm("Are you sure you want to completely delete this chat? This cannot be undone.")) return;
+    
+    const supabase = createClient();
+    const { error } = await supabase.from("conversations").delete().eq("id", conversation.id);
+    
+    if (error) {
+      toast.error("Failed to delete conversation.");
+      console.error(error);
+    } else {
+      toast.success("Conversation deleted.");
+      router.push("/inbox");
+    }
+  }, [conversation, router]);
+
   const handleStatusChange = useCallback(
     async (status: ConversationStatus) => {
       if (!conversation) return;
@@ -1021,6 +1039,10 @@ export function MessageThread({
                   {t(`status${opt.label}`)}
                 </DropdownMenuItem>
               ))}
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={handleDeleteChat} className="text-sm text-red-500 focus:text-red-600">
+                Delete Chat
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 

@@ -1,6 +1,6 @@
-# wacrm — CRM Template for WhatsApp
+# wacrm — Foundida Whatsapp CRM
 
-> Self-hostable CRM template for WhatsApp® — shared inbox, contacts,
+> Self-hostable Foundida Whatsapp CRM® — shared inbox, contacts,
 > sales pipelines, broadcasts, and no-code automations. Fork it, brand
 > it, host it.
 
