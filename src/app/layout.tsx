@@ -22,10 +22,10 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "wacrm",
-    template: "%s — wacrm",
+    default: "Foundida",
+    template: "%s - Foundida",
   },
-  description: "Self-hostable Foundida Whatsapp CRM.",
+  description: "Foundida - From Idea to Funding",
   robots: {
     index: false,
     follow: false,
@@ -118,3 +118,4 @@ export default async function RootLayout({
     </html>
   );
 }
+

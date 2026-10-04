@@ -82,9 +82,7 @@ export default function ForgotPasswordPage() {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <Card className="w-full max-w-md border-border bg-card">
         <CardHeader className="items-center text-center">
-          <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
-            <MessageSquare className="h-6 w-6 text-primary" />
-          </div>
+          <img src="/logo.jpg" alt="Logo" className="mb-2 h-12 w-12 rounded-xl object-contain" />
           <CardTitle className="text-xl text-foreground">{t("title")}</CardTitle>
           <CardDescription className="text-muted-foreground">
             {t("desc")}
@@ -134,3 +132,6 @@ export default function ForgotPasswordPage() {
     </div>
   );
 }
+
+
+
